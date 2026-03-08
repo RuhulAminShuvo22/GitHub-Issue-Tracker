@@ -1,0 +1,44 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Issue Tracker</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- DaisyUI -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body class="bg-gray-100">
+    <!-- ================= NAVBAR ================= -->
+
+    <div class="navbar bg-black text-white px-6">
+      <div class="flex items-center gap-3 flex-1">
+        <img src="assets/github-logo.png" class="w-8 invert" />
+
+        <h1 class="text-xl font-bold">GitHub Issues Tracker</h1>
+      </div>
+
+      <!-- SEARCH -->
+
+      <div class="flex gap-2">
+        <input
+          id="searchInput"
+          placeholder="Search issues..."
+          class="input input-sm text-black"
+        />
+
+        <button onclick="searchIssue()" class="btn btn-sm btn-primary">
+          Search
+        </button>
+      </div>
+    </div>
+
