@@ -160,6 +160,18 @@ ${new Date(issue.createdAt).toLocaleDateString()}
 `;
   });
 }
+
+
+/* ================= ACTIVE TAB ================= */
+
+function setActive(tab) {
+  document
+    .querySelectorAll(".tab")
+    .forEach((t) => t.classList.remove("tab-active"));
+
+  document.getElementById(tab).classList.add("tab-active");
+}
+
 /* ================= FILTER ================= */
 
 function filterStatus(status) {
@@ -182,4 +194,32 @@ async function searchIssue() {
   const data = await res.json();
 
   displayIssues(data.data);
+}
+
+/* ================= MODAL ================= */
+
+async function openModal(id) {
+  const res = await fetch(
+    `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`,
+  );
+
+  const data = await res.json();
+
+  const issue = data.data;
+
+  document.getElementById("modalContent").innerHTML = `
+
+<h3 class="font-bold text-lg">${issue.title}</h3>
+
+<p class="py-2">${issue.description}</p>
+
+<p><b>Author:</b> ${issue.author}</p>
+<p><b>Status:</b> ${issue.status}</p>
+<p><b>Priority:</b> ${issue.priority}</p>
+<p><b>Labels:</b> ${issue.labels.join(", ")}</p>
+<p><b>Created:</b> ${new Date(issue.createdAt).toLocaleDateString()}</p>
+
+`;
+
+  document.getElementById("issueModal").showModal();
 }
