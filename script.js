@@ -1,7 +1,8 @@
-/* Store all issues */
+// ================= STORE ALL ISSUES =================
+
 let allIssues = [];
 
-/* ================= LOGIN ================= */
+// ================= LOGIN FUNCTION =================
 
 function login() {
   const username = document.getElementById("username").value;
@@ -9,39 +10,66 @@ function login() {
 
   if (username === "admin" && password === "admin123") {
     localStorage.setItem("login", "true");
+
     window.location.href = "index.html";
   } else {
     alert("Invalid Credentials");
   }
 }
 
-/* ================= LOAD ISSUES ================= */
+// ================= LOGIN PROTECTION =================
 
-async function loadIssues() {
-  setActive("allTab");
+if (window.location.pathname.includes("index.html")) {
+  const checkLogin = localStorage.getItem("login");
 
-  document.getElementById("loader").classList.remove("hidden");
-
-  const res = await fetch(
-    "https://phi-lab-server.vercel.app/api/v1/lab/issues",
-  );
-
-  const data = await res.json();
-
-  allIssues = data.data;
-
-  displayIssues(allIssues);
-
-  document.getElementById("loader").classList.add("hidden");
+  if (checkLogin !== "true") {
+    window.location.href = "login.html";
+  }
 }
 
-/* Auto load */
+// ================= LOGOUT =================
+
+function logout() {
+  localStorage.removeItem("login");
+
+  window.location.href = "login.html";
+}
+
+// ================= LOAD ISSUES =================
+
+async function loadIssues() {
+  try {
+    setActive("allTab");
+
+    document.getElementById("loader").classList.remove("hidden");
+
+    const res = await fetch(
+      "https://phi-lab-server.vercel.app/api/v1/lab/issues",
+    );
+
+    const data = await res.json();
+
+    allIssues = data.data;
+
+    displayIssues(allIssues);
+
+    // update counter
+    document.getElementById("issueCount").innerText =
+      allIssues.length + " Issues";
+
+    document.getElementById("loader").classList.add("hidden");
+  } catch (error) {
+    console.log("API ERROR:", error);
+  }
+}
+
+// ================= AUTO LOAD =================
 
 if (document.getElementById("issuesContainer")) {
   loadIssues();
 }
 
-/* ================= DISPLAY CARDS ================= */
+// ================= DISPLAY ISSUES =================
 
 function displayIssues(issues) {
   const container = document.getElementById("issuesContainer");
@@ -49,22 +77,17 @@ function displayIssues(issues) {
   container.innerHTML = "";
 
   issues.forEach((issue) => {
-    /* Priority color */
-
     let priorityColor = "badge-low";
 
     if (issue.priority === "medium") priorityColor = "badge-medium";
-
     if (issue.priority === "high") priorityColor = "badge-high";
-
-    /* Top border color */
 
     const border =
       issue.status === "open"
         ? "border-t-4 border-green-500"
         : "border-t-4 border-purple-500";
 
-    /* ================= STATUS ICON ================= */
+    // ================= STATUS ICON =================
 
     let statusIcon = "";
 
@@ -83,14 +106,14 @@ function displayIssues(issues) {
 
 <div class="w-8 h-8 bg-purple-100 flex items-center justify-center rounded-full">
 
-<img src="assets/Closed- Status .png" class="w-4">
+<img src="assets/Closed-Status.png" class="w-4">
 
 </div>
 
 `;
     }
 
-    /* ================= LABELS ================= */
+    // ================= LABELS =================
 
     let labelsHTML = "";
 
@@ -114,7 +137,7 @@ function displayIssues(issues) {
         .join("");
     }
 
-    /* ================= CARD ================= */
+    // ================= CARD =================
 
     container.innerHTML += `
 
@@ -161,8 +184,7 @@ ${new Date(issue.createdAt).toLocaleDateString()}
   });
 }
 
-
-/* ================= ACTIVE TAB ================= */
+// ================= ACTIVE TAB =================
 
 function setActive(tab) {
   document
@@ -172,7 +194,7 @@ function setActive(tab) {
   document.getElementById(tab).classList.add("tab-active");
 }
 
-/* ================= FILTER ================= */
+// ================= FILTER =================
 
 function filterStatus(status) {
   setActive(status + "Tab");
@@ -182,10 +204,15 @@ function filterStatus(status) {
   displayIssues(filtered);
 }
 
-/* ================= SEARCH ================= */
+// ================= SEARCH =================
 
 async function searchIssue() {
   const text = document.getElementById("searchInput").value;
+
+  if (!text) {
+    loadIssues();
+    return;
+  }
 
   const res = await fetch(
     `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`,
@@ -196,7 +223,7 @@ async function searchIssue() {
   displayIssues(data.data);
 }
 
-/* ================= MODAL ================= */
+// ================= MODAL =================
 
 async function openModal(id) {
   const res = await fetch(
@@ -209,19 +236,23 @@ async function openModal(id) {
 
   document.getElementById("modalContent").innerHTML = `
 
-<h3 class="font-bold text-lg">${issue.title}</h3>
+<h3 class="font-bold text-lg">
+${issue.title}
+</h3>
 
-<p class="py-2">${issue.description}</p>
+<p class="py-2">
+${issue.description}
+</p>
 
 <p><b>Author:</b> ${issue.author}</p>
 <p><b>Status:</b> ${issue.status}</p>
 <p><b>Priority:</b> ${issue.priority}</p>
 <p><b>Labels:</b> ${issue.labels.join(", ")}</p>
-<p><b>Created:</b> ${new Date(issue.createdAt).toLocaleDateString()}</p>
+<p><b>Created:</b>
+${new Date(issue.createdAt).toLocaleDateString()}
+</p>
 
 `;
 
   document.getElementById("issueModal").showModal();
 }
-
-// done //
