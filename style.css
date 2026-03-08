@@ -33,3 +33,37 @@ body {
   padding: 4px 10px;
   border-radius: 20px;
 }
+
+.badge-low {
+  background: #e5e7eb;
+  color: #6b7280;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* Labels Highlight */
+
+.label-bug {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.label-help {
+  background: #fef3c7;
+  color: #d97706;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.label-enhancement {
+  background: #d1fae5;
+  color: #059669;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
