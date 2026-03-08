@@ -1,0 +1,35 @@
+body {
+  background: #f6f7fb;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Card hover animation */
+
+.card {
+  transition: 0.3s;
+  cursor: pointer;
+  border-radius: 14px;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Priority Highlight */
+
+.badge-high {
+  background: #fee2e2;
+  color: #dc2626;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.badge-medium {
+  background: #fef3c7;
+  color: #d97706;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
