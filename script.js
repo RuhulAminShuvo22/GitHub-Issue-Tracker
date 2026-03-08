@@ -89,3 +89,27 @@ function displayIssues(issues) {
 
 `;
     }
+
+    /* ================= LABELS ================= */
+
+    let labelsHTML = "";
+
+    if (issue.labels) {
+      labelsHTML = issue.labels
+        .map((label) => {
+          if (label.toLowerCase() === "bug") {
+            return `<span class="label-bug">🐞 BUG</span>`;
+          }
+
+          if (label.toLowerCase() === "help wanted") {
+            return `<span class="label-help">🟡 HELP WANTED</span>`;
+          }
+
+          if (label.toLowerCase() === "enhancement") {
+            return `<span class="label-enhancement">✨ ENHANCEMENT</span>`;
+          }
+
+          return `<span class="badge badge-outline">${label}</span>`;
+        })
+        .join("");
+    }
