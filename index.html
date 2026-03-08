@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Issue Tracker</title>
+    <title>Login</title>
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,107 +18,62 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body class="bg-gray-100">
-    <!-- ================= NAVBAR ================= -->
+  <body class="bg-gray-100 flex items-center justify-center h-screen">
+    <!-- ================= LOGIN CARD ================= -->
 
-    <div class="navbar bg-black text-white px-6">
-      <div class="flex items-center gap-3 flex-1">
-        <img src="assets/github-logo.png" class="w-8 invert" />
+    <div class="bg-white w-[420px] p-8 rounded-xl shadow-lg">
+      <!-- LOGO -->
 
-        <h1 class="text-xl font-bold">GitHub Issues Tracker</h1>
+      <div class="text-center">
+        <img src="assets/github-logo.png" class="w-20 mx-auto" />
+
+        <h1 class="text-2xl font-bold mt-4">GitHub Issues Tracker</h1>
+
+        <p class="text-gray-500 mt-1">Sign in to manage your issues</p>
       </div>
 
-      <!-- SEARCH -->
+      <!-- ================= FORM ================= -->
 
-      <div class="flex gap-2">
+      <div class="mt-6 space-y-4">
+        <label class="text-sm font-semibold"> Username </label>
+
         <input
-          id="searchInput"
-          placeholder="Search issues..."
-          class="input input-sm text-black"
+          id="username"
+          type="text"
+          placeholder="Enter Username"
+          class="input input-bordered w-full"
         />
 
-        <button onclick="searchIssue()" class="btn btn-sm btn-primary">
-          Search
-        </button>
+        <p class="text-sm text-blue-600">Default: admin</p>
 
-        <button onclick="logout()" class="btn btn-sm btn-error">Logout</button>
-      </div>
-    </div>
+        <label class="text-sm font-semibold"> Password </label>
 
-    <!-- ================= HEADER ================= -->
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter Password"
+          class="input input-bordered w-full"
+        />
 
-    <div class="flex justify-between items-center px-6 mt-6">
-      <div class="flex items-center gap-3">
-        <div
-          class="w-10 h-10 bg-purple-100 flex items-center justify-center rounded-full"
+        <p class="text-sm text-blue-600">Default: admin123</p>
+
+        <button
+          onclick="login()"
+          class="btn w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white border-none mt-2"
         >
-          <img src="assets/Aperture.png" class="w-6 h-6" />
-        </div>
-
-        <div>
-          <h2 id="issueCount" class="text-xl font-bold">Issues</h2>
-
-          <p class="text-gray-500 text-sm">
-            Track and manage your project issues
-          </p>
-        </div>
+          Sign In
+        </button>
       </div>
 
-      <!-- LEGEND -->
+      <div class="divider">OR</div>
 
-      <div class="flex items-center gap-4 text-sm">
-        <div class="flex items-center gap-2">
-          <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-          Open
-        </div>
-
-        <div class="flex items-center gap-2">
-          <span class="w-3 h-3 bg-purple-500 rounded-full"></span>
-          Closed
-        </div>
+      <div class="bg-gray-100 p-4 rounded-lg text-center text-sm">
+        <p><b>Username:</b> admin</p>
+        <p><b>Password:</b> admin123</p>
       </div>
     </div>
 
-    <!-- ================= FILTER TABS ================= -->
-
-    <div class="px-6 mt-4">
-      <div class="tabs tabs-boxed">
-        <button id="allTab" class="tab tab-active" onclick="loadIssues()">
-          All
-        </button>
-
-        <button id="openTab" class="tab" onclick="filterStatus('open')">
-          Open
-        </button>
-
-        <button id="closedTab" class="tab" onclick="filterStatus('closed')">
-          Closed
-        </button>
-      </div>
-    </div>
-
-    <!-- ================= LOADER ================= -->
-
-    <div id="loader" class="text-center hidden mt-10">
-      <span class="loading loading-spinner loading-lg"></span>
-    </div>
-
-    <!-- ================= ISSUE GRID ================= -->
-
-    <div
-      id="issuesContainer"
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6"
-    ></div>
-
-    <!-- ================= MODAL ================= -->
-
-    <dialog id="issueModal" class="modal">
-      <div class="modal-box" id="modalContent"></div>
-
-      <form method="dialog" class="modal-backdrop">
-        <button>close</button>
-      </form>
-    </dialog>
+    <!-- ================= SCRIPT ================= -->
 
     <script src="script.js"></script>
   </body>

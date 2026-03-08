@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Issue Tracker</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- DaisyUI -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body class="bg-gray-100">
+    <!-- ================= NAVBAR ================= -->
+
+    <div class="navbar bg-black text-white px-6">
+      <div class="flex items-center gap-3 flex-1">
+        <img src="assets/github-logo.png" class="w-8 invert" />
+
+        <h1 class="text-xl font-bold">GitHub Issues Tracker</h1>
+      </div>
+
+      <!-- SEARCH -->
+
+      <div class="flex gap-2">
+        <input
+          id="searchInput"
+          placeholder="Search issues..."
+          class="input input-sm text-black"
+        />
+
+        <button onclick="searchIssue()" class="btn btn-sm btn-primary">
+          Search
+        </button>
+
+        <button onclick="logout()" class="btn btn-sm btn-error">Logout</button>
+      </div>
+    </div>
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="flex justify-between items-center px-6 mt-6">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-10 h-10 bg-purple-100 flex items-center justify-center rounded-full"
+        >
+          <img src="assets/Aperture.png" class="w-6 h-6" />
+        </div>
+
+        <div>
+          <h2 id="issueCount" class="text-xl font-bold">Issues</h2>
+
+          <p class="text-gray-500 text-sm">
+            Track and manage your project issues
+          </p>
+        </div>
+      </div>
+
+      <!-- LEGEND -->
+
+      <div class="flex items-center gap-4 text-sm">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+          Open
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 bg-purple-500 rounded-full"></span>
+          Closed
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= FILTER TABS ================= -->
+
+    <div class="px-6 mt-4">
+      <div class="tabs tabs-boxed">
+        <button id="allTab" class="tab tab-active" onclick="loadIssues()">
+          All
+        </button>
+
+        <button id="openTab" class="tab" onclick="filterStatus('open')">
+          Open
+        </button>
+
+        <button id="closedTab" class="tab" onclick="filterStatus('closed')">
+          Closed
+        </button>
+      </div>
+    </div>
+
+    <!-- ================= LOADER ================= -->
+
+    <div id="loader" class="text-center hidden mt-10">
+      <span class="loading loading-spinner loading-lg"></span>
+    </div>
+
+    <!-- ================= ISSUE GRID ================= -->
+
+    <div
+      id="issuesContainer"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6"
+    ></div>
+
+    <!-- ================= MODAL ================= -->
+
+    <dialog id="issueModal" class="modal">
+      <div class="modal-box" id="modalContent"></div>
+
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
