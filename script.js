@@ -113,3 +113,50 @@ function displayIssues(issues) {
         })
         .join("");
     }
+
+    /* ================= CARD ================= */
+
+    container.innerHTML += `
+
+<div onclick="openModal(${issue.id})"
+class="card bg-white shadow ${border} p-4">
+
+<div class="flex justify-between items-start">
+
+${statusIcon}
+
+<span class="${priorityColor}">
+${issue.priority.toUpperCase()}
+</span>
+
+</div>
+
+<h2 class="font-semibold text-sm mt-3">
+${issue.title}
+</h2>
+
+<p class="text-xs text-gray-500 mt-2">
+${issue.description}
+</p>
+
+<div class="flex flex-wrap gap-2 mt-3">
+${labelsHTML}
+</div>
+
+<div class="border-t mt-3 pt-2">
+
+<p class="text-xs text-gray-400">
+#${issue.id} by ${issue.author}
+</p>
+
+<p class="text-xs text-gray-400">
+${new Date(issue.createdAt).toLocaleDateString()}
+</p>
+
+</div>
+
+</div>
+
+`;
+  });
+}
