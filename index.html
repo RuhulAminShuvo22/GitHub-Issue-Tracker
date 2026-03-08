@@ -42,7 +42,7 @@
       </div>
     </div>
 
-        <!-- ================= HEADER ================= -->
+    <!-- ================= HEADER ================= -->
 
     <div class="flex justify-between items-center px-6 mt-6">
       <div class="flex items-center gap-3">
@@ -94,4 +94,29 @@
       </div>
     </div>
 
+    <!-- ================= LOADER ================= -->
 
+    <div id="loader" class="text-center hidden mt-10">
+      <span class="loading loading-spinner loading-lg"></span>
+    </div>
+
+    <!-- ================= ISSUE GRID ================= -->
+
+    <div
+      id="issuesContainer"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6"
+    ></div>
+
+    <!-- ================= MODAL ================= -->
+
+    <dialog id="issueModal" class="modal">
+      <div class="modal-box" id="modalContent"></div>
+
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
