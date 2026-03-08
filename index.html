@@ -61,3 +61,37 @@
         </div>
       </div>
 
+      <!-- LEGEND -->
+
+      <div class="flex items-center gap-4 text-sm">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+          Open
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 bg-purple-500 rounded-full"></span>
+          Closed
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= FILTER TABS ================= -->
+
+    <div class="px-6 mt-4">
+      <div class="tabs tabs-boxed">
+        <button id="allTab" class="tab tab-active" onclick="loadIssues()">
+          All
+        </button>
+
+        <button id="openTab" class="tab" onclick="filterStatus('open')">
+          Open
+        </button>
+
+        <button id="closedTab" class="tab" onclick="filterStatus('closed')">
+          Closed
+        </button>
+      </div>
+    </div>
+
+
