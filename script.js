@@ -11,19 +11,10 @@ function login() {
   if (username === "admin" && password === "admin123") {
     localStorage.setItem("login", "true");
 
-    window.location.href = "index.html";
+    // redirect
+    window.location.href = "dashboard.html";
   } else {
     alert("Invalid Credentials");
-  }
-}
-
-// ================= LOGIN PROTECTION =================
-
-if (window.location.pathname.includes("index.html")) {
-  const checkLogin = localStorage.getItem("login");
-
-  if (checkLogin !== "true") {
-    window.location.href = "login.html";
   }
 }
 
@@ -31,8 +22,7 @@ if (window.location.pathname.includes("index.html")) {
 
 function logout() {
   localStorage.removeItem("login");
-
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
 
 // ================= LOAD ISSUES =================
@@ -41,7 +31,8 @@ async function loadIssues() {
   try {
     setActive("allTab");
 
-    document.getElementById("loader").classList.remove("hidden");
+    const loader = document.getElementById("loader");
+    if (loader) loader.classList.remove("hidden");
 
     const res = await fetch(
       "https://phi-lab-server.vercel.app/api/v1/lab/issues",
@@ -49,30 +40,34 @@ async function loadIssues() {
 
     const data = await res.json();
 
-    allIssues = data.data;
+    allIssues = data.data || [];
 
     displayIssues(allIssues);
 
-    // update counter
-    document.getElementById("issueCount").innerText =
-      allIssues.length + " Issues";
-
-    document.getElementById("loader").classList.add("hidden");
+    const counter = document.getElementById("issueCount");
+    if (counter) counter.innerText = allIssues.length + " Issues";
   } catch (error) {
     console.log("API ERROR:", error);
+  } finally {
+    const loader = document.getElementById("loader");
+    if (loader) loader.classList.add("hidden");
   }
 }
 
 // ================= AUTO LOAD =================
 
-if (document.getElementById("issuesContainer")) {
-  loadIssues();
-}
+window.onload = function () {
+  if (document.getElementById("issuesContainer")) {
+    loadIssues();
+  }
+};
 
 // ================= DISPLAY ISSUES =================
 
 function displayIssues(issues) {
   const container = document.getElementById("issuesContainer");
+
+  if (!container) return;
 
   container.innerHTML = "";
 
@@ -87,33 +82,19 @@ function displayIssues(issues) {
         ? "border-t-4 border-green-500"
         : "border-t-4 border-purple-500";
 
-    // ================= STATUS ICON =================
-
     let statusIcon = "";
 
     if (issue.status === "open") {
       statusIcon = `
-
 <div class="w-8 h-8 bg-green-100 flex items-center justify-center rounded-full">
-
 <img src="assets/Open-Status.png" class="w-4">
-
-</div>
-
-`;
+</div>`;
     } else {
       statusIcon = `
-
 <div class="w-8 h-8 bg-purple-100 flex items-center justify-center rounded-full">
-
 <img src="assets/Closed-Status.png" class="w-4">
-
-</div>
-
-`;
+</div>`;
     }
-
-    // ================= LABELS =================
 
     let labelsHTML = "";
 
@@ -136,8 +117,6 @@ function displayIssues(issues) {
         })
         .join("");
     }
-
-    // ================= CARD =================
 
     container.innerHTML += `
 
@@ -191,7 +170,8 @@ function setActive(tab) {
     .querySelectorAll(".tab")
     .forEach((t) => t.classList.remove("tab-active"));
 
-  document.getElementById(tab).classList.add("tab-active");
+  const el = document.getElementById(tab);
+  if (el) el.classList.add("tab-active");
 }
 
 // ================= FILTER =================
