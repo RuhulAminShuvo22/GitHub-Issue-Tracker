@@ -92,7 +92,7 @@ function displayIssues(issues) {
     } else {
       statusIcon = `
 <div class="w-8 h-8 bg-purple-100 flex items-center justify-center rounded-full">
-<img src="assets/Closed-Status.png" class="w-4">
+<img src="assets/Closed- Status .png" class="w-4">
 </div>`;
     }
 
