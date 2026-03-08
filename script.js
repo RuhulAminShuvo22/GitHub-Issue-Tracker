@@ -15,7 +15,6 @@ function login() {
   }
 }
 
-
 /* ================= LOAD ISSUES ================= */
 
 async function loadIssues() {
@@ -41,3 +40,52 @@ async function loadIssues() {
 if (document.getElementById("issuesContainer")) {
   loadIssues();
 }
+
+/* ================= DISPLAY CARDS ================= */
+
+function displayIssues(issues) {
+  const container = document.getElementById("issuesContainer");
+
+  container.innerHTML = "";
+
+  issues.forEach((issue) => {
+    /* Priority color */
+
+    let priorityColor = "badge-low";
+
+    if (issue.priority === "medium") priorityColor = "badge-medium";
+
+    if (issue.priority === "high") priorityColor = "badge-high";
+
+    /* Top border color */
+
+    const border =
+      issue.status === "open"
+        ? "border-t-4 border-green-500"
+        : "border-t-4 border-purple-500";
+
+    /* ================= STATUS ICON ================= */
+
+    let statusIcon = "";
+
+    if (issue.status === "open") {
+      statusIcon = `
+
+<div class="w-8 h-8 bg-green-100 flex items-center justify-center rounded-full">
+
+<img src="assets/Open-Status.png" class="w-4">
+
+</div>
+
+`;
+    } else {
+      statusIcon = `
+
+<div class="w-8 h-8 bg-purple-100 flex items-center justify-center rounded-full">
+
+<img src="assets/Closed- Status .png" class="w-4">
+
+</div>
+
+`;
+    }
