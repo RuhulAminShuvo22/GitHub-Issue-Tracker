@@ -160,3 +160,26 @@ ${new Date(issue.createdAt).toLocaleDateString()}
 `;
   });
 }
+/* ================= FILTER ================= */
+
+function filterStatus(status) {
+  setActive(status + "Tab");
+
+  const filtered = allIssues.filter((issue) => issue.status === status);
+
+  displayIssues(filtered);
+}
+
+/* ================= SEARCH ================= */
+
+async function searchIssue() {
+  const text = document.getElementById("searchInput").value;
+
+  const res = await fetch(
+    `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`,
+  );
+
+  const data = await res.json();
+
+  displayIssues(data.data);
+}
